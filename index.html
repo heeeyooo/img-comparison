@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: rgb(96, 96, 96);
+            width: 100%;
+            height: 100dvh;
+            display: grid;
+            place-items: center;
+        }
+
+        .container {
+            position: relative;
+            width: 400px;
+            height: 300px;
+            overflow: hidden;
+        }
+
+        .container img {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .slider-img {
+            /*  x y */
+            --x-axis: 0;
+            clip-path: polygon(0 0, var(--x-axis) 0%, var(--x-axis) 100%, 0 100%);
+        }
+
+        .ranger {
+            position: relative;
+            appearance: none;
+            background-color: transparent;
+            height: 100%;
+            width: calc(100% + 40px);
+            margin-left: -20px;
+            outline: none;
+        }
+
+        .ranger::-webkit-slider-thumb {
+            appearance: none;
+            height: 40px;
+            width: 40px;
+            background: url('./img/sliding-door.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <img src="./img/pic-gray.jpg" alt="">
+        <img class="slider-img" src="./img/pic.jpg" alt="">
+        <input class="ranger js-range" type="range" min="0" max="100" value="50">
+    </div>
+    <script>
+        const range = document.querySelector('.js-range')
+
+        document.querySelector('.slider-img').style.setProperty('--x-axis', range.value + '%')
+
+        range.addEventListener("input", () => {
+            document.querySelector('.slider-img').style.setProperty('--x-axis', range.value + '%')
+        })
+    </script>
+</body>
+
+</html>
